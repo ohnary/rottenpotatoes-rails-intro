@@ -16,7 +16,16 @@ class MoviesController < ApplicationController
     @movies = Movie.all
     @movies = Movie.order(title: :asc) if params[:sort_by] == 'title'
     @movies = Movie.order(release_date: :asc) if params[:sort_by] == 'release_date'
+
+    if params[:ratings]
+      @movies = Movie.where(:rating=>params[:ratings].keys)
+    end
     @sort_column= params[:sort_by]
+    @all_ratings = Movie.all_ratings
+    @set_ratings = params[:ratings]
+    if !@set_ratings
+      @set_ratings = Hash.new
+    end
   end
 
   def new
