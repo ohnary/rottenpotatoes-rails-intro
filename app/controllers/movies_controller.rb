@@ -11,20 +11,18 @@ class MoviesController < ApplicationController
   end
 
   def index
+
+    if(!params.has_key?(:sort_by) && !params.has_key?(:ratings))
+      if(session.has_key?(:sort) || session.has_key?(:ratings))
+        redirect_to movies_path(:sort=>session[:sort], :ratings=>session[:ratings])
+      end
+    end
+
     session[:sort_by]  = params[:sort_by] if params[:sort_by]
     session[:ratings]  = params[:ratings] if params[:ratings]
 
-    flash.keep
-    if !params[:sort_by]
-      if !params[:ratings]
-        redirect_to movies_path({sort_by: session[:sort_by], ratings: session[:ratings]})
-      else
-        redirect_to movies_path({sort_by: session[:sort_by], ratings: params[:ratings]})
-      end
-    elsif !params[:ratings]
-      redirect_to movies_path({sort_by: params[:sort_by], ratings: session[:ratings]})
-    end
-    
+
+
     @sort_column = session[:sort_by]
     @movies      = Movie.all
 
