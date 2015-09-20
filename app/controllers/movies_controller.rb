@@ -26,7 +26,7 @@ class MoviesController < ApplicationController
     @sort_column = session[:sort_by]
     @movies      = Movie.all
 
-    @movies      = Movie.order("#{@sort_column}") if @sort_column
+    @movies      = @movies.order("#{@sort_column}") if @sort_column
     @movies      = @movies.where(:rating=>session[:ratings].keys)  if session[:ratings]
  
     @all_ratings = Movie.all_ratings
