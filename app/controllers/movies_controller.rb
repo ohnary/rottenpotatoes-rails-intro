@@ -21,8 +21,6 @@ class MoviesController < ApplicationController
     session[:sort_by]  = params[:sort_by] if params[:sort_by]
     session[:ratings]  = params[:ratings] if params[:ratings]
 
-
-
     @sort_column = session[:sort_by]
     @movies      = Movie.all
 
