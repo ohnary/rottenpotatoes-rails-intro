@@ -21,6 +21,7 @@ class MoviesController < ApplicationController
     session[:sort_by]  = params[:sort_by] if params[:sort_by]
     session[:ratings]  = params[:ratings] if params[:ratings]
 
+    #session[:ratings] cannot be used at view
     @selected_ratings = (session[:ratings].present? ? session[:ratings] : [])
 
     @sort_column = session[:sort_by]
