@@ -9,12 +9,12 @@ class MoviesController < ApplicationController
     @movie = Movie.find(id) # look up movie by unique ID
     # will render app/views/movies/show.<extension> by default
   end
-
+  
   def index
 
     if(!params.has_key?(:sort_by) && !params.has_key?(:ratings))
-      if(session.has_key?(:sort) || session.has_key?(:ratings))
-        redirect_to movies_path(:sort=>session[:sort], :ratings=>session[:ratings])
+      if(session.has_key?(:sort_by) || session.has_key?(:ratings)) 
+        redirect_to movies_path(:sort_by=>session[:sort_by], :ratings=>session[:ratings]) and return
       end
     end
 
